@@ -11,5 +11,6 @@
     "dependencies": {
         "sequelize": "^6.3.5",
         "dotenv": "^8.2.0", 
+        "bcrypt": "^5.0.0",
     }
 }
