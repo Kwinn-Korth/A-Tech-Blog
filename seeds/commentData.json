@@ -1,0 +1,14 @@
+[
+    {
+        "content": "Great explanation! I've been struggling with RESTful APIs, and your post clarified a lot of things for me.",
+        "post_id": 1
+    },
+    {
+        "content": "I love using React Hooks! They make managing state so much cleaner and more intuitive.",
+        "post_id": 2
+    },
+    {
+        "content": "Docker has been a game-changer for deploying my Node.js apps. It makes the whole process much smoother.",
+        "post_id": 3
+    }
+]

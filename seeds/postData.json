@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Understanding RESTful APIs",
+        "content": "RESTful APIs are a fundamental aspect of modern web development. They allow for stateless communication between client and server.",
+        "user_id": 1
+    },
+    {
+        "title": "Introduction to React Hooks",
+        "content": "React Hooks revolutionized the way we manage state and side effects in React functional components. Understanding them is essential for modern React development.",
+        "user_id": 2
+    },
+    {
+        "title": "Deploying Node.js Applications with Docker",
+        "content": "Docker simplifies the deployment process by encapsulating applications into containers. Learn how to use Docker to deploy your Node.js applications with ease.",
+        "user_id": 3
+    }
+]
