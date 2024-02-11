@@ -1,11 +1,11 @@
 {{#each posts as |post|}}
-  <div>
-    <h2>
+  <div class="post-container">
+    <h2 class="post-title">
         <a href="/post/{{post.id}}">{{post.title}}</a>
     </h2>
-    <p> Posted by {{post.user.username}} on {{format_date post.date_created}}</p>
-  </div>
-  <div>
-    <p>{{post.content}}</p>
+    <p class="post-info"> Posted by {{post.user.username}} on {{format_date post.date_created}}</p>
+    <div class="post-content">
+        <p>{{post.content}}</p>
+    </div>
   </div>
 {{/each}}

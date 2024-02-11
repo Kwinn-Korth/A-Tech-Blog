@@ -1,30 +1,29 @@
-{{!-- Login Page --}}
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h1>Login</h1>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-      </form>
-    </div>
+<div class="login-container">
+  <div class="login-form">
+    <h1>Login</h1>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+    </form>
   </div>
-  <div class="col-md-6 col-md-offset-3">
+  <div class="signup-section">
     <h2>Don't have an account? Sign up!</h2>
     <form class="signup-form">
         <label>Username</label>
-        <input type="text" class="form-control" id="username" name="username" required>
+        <input type="text" class="form-control" id="signupUsername" name="username" required>
         <label>Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+        <input type="email" class="form-control" id="signupEmail" name="email" required>
         <label>Password</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <input type="password" class="form-control" id="signupPassword" name="password" required>
+        <button type="submit" class="btn btn-primary" id="signupButton">Sign Up</button>
     </form>
+  </div>
+</div>
 
 <script src="../public/js/login.js"></script>
