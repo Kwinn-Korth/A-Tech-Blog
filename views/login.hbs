@@ -1,29 +1,33 @@
-<div class="login-container">
-  <div class="login-form">
-    <h1>Login</h1>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-      </div>
-      <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
-    </form>
-  </div>
-  <div class="signup-section">
-    <h2>Don't have an account? Sign up!</h2>
-    <form class="signup-form">
-        <label>Username</label>
-        <input type="text" class="form-control" id="signupUsername" name="username" required>
-        <label>Email</label>
-        <input type="email" class="form-control" id="signupEmail" name="email" required>
-        <label>Password</label>
-        <input type="password" class="form-control" id="signupPassword" name="password" required>
-        <button type="submit" class="btn btn-primary" id="signupButton">Sign Up</button>
-    </form>
-  </div>
+{{!-- Display login and signup forms --}}
+<div class="container mt-5">
+    <div class="row mx-auto">
+        <div class="col-md-12 col-lg-6">
+            <div class="card primary">
+                <h1 class="mx-auto pt-3">Login</h1>
+                <form class="mx-auto login-form">
+                    <label>Email</label>
+                    <input type="text" id="email-login" class="form-control mb-2" name="email" required>
+                    <label>Password</label>
+                    <input type="password" id="password-login" class="form-control mb-2" name="password" required>
+                    <input type="submit" value="Login" class="btn btn-primary mb-3" id="loginButton">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="card primary">
+                <h1 class="mx-auto pt-3">Sign Up</h1>
+                <form class="mx-auto signup-form">
+                    <label>Name</label>
+                    <input type="text" id="name-signup" class="form-control mb-2" name="username" required>
+                    <label>Email</label>
+                    <input type="text" id="email-signup" class="form-control mb-2" name="email" required>
+                    <label>Password</label>
+                    <input type="password" id="password-signup" class="form-control mb-2" name="password" required>
+                    <input type="submit" value="Sign Up" class="btn btn-primary mb-3" id="signupButton">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script src="../public/js/login.js"></script>
+<script src="/login.js"></script>

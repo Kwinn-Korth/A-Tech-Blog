@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {User, Comment, Post} = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// Function to create a new post
+// Function to create a new post if the user is logged in
 router.post('/', withAuth, async (req, res) => {
     try {
         const newPost = await Post.create({
