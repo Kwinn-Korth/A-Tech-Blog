@@ -3,6 +3,12 @@ const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 const path = require('path');
 
+// Function to render the Handlebars file with layout
+function renderPage(res, view, data) {
+    const viewPath = path.join(__dirname, `../views/${view}.hbs`);
+    res.render(viewPath, { layout: 'layouts/main', ...data });
+}
+
 // Function/ Route to get all posts
 router.get('/', async (req, res) => {
     try {
@@ -17,7 +23,7 @@ router.get('/', async (req, res) => {
 
         const posts = postData.map((post) => post.get({ plain: true }));
 
-        res.render(path.join(__dirname, '../views/homepage.hbs'), {
+        renderPage(res, 'homepage', {
             posts,
             logged_in: req.session.logged_in
         });
@@ -26,6 +32,7 @@ router.get('/', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
 // Function/ Route to get a single post by its id
 router.get('/post/:id', async (req, res) => {
     try {
@@ -46,7 +53,7 @@ router.get('/post/:id', async (req, res) => {
             ],
         });
         const post = postData.get({ plain: true });
-        res.render(path.join(__dirname, '../views/post.hbs'), { 
+        renderPage(res, 'post', { 
             post,
             logged_in: req.session.logged_in
         });
@@ -64,7 +71,7 @@ router.get('/profile', withAuth, async (req, res) => {
             include: [{ model: Post }]
         });
         const user = userData.get({ plain: true });
-        res.render(path.join(__dirname, '../views/profile.hbs'), { 
+        renderPage(res, 'profile', { 
             ...user,
             logged_in: true
         });
@@ -77,10 +84,10 @@ router.get('/profile', withAuth, async (req, res) => {
 // Function/ Route to get the login page
 router.get('/login', (req, res) => {
     if (req.session.logged_in_) {
-        res.redirect(path.join(__dirname, '../views/profile.hbs'));
+        res.redirect('/profile');
         return
     }
-    res.render(path.join(__dirname, '../views/login.hbs')); 
+    renderPage(res, 'login'); 
 });
 
 module.exports = router;
