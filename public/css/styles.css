@@ -1,0 +1,108 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.primary {
+    background-color: #333;
+    color: #fff;
+}
+
+.text-color {
+    color: #fff;
+}
+
+.navbar {
+    padding: 20px;
+}
+
+.navbar-nav {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-item {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Login page styles */
+.login-form,
+.signup-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Post styles */
+.card {
+    background-color: #444;
+    color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card p {
+    margin: 0;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.commentModalClose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.commentModalClose:hover,
+.commentModalClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
