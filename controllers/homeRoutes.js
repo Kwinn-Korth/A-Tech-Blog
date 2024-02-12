@@ -9,45 +9,48 @@ router.get('/', async (req, res) => {
             include: [
                 {
                     model: User,
-                    attributes: ['username'],
+                    attributes: ['name']
                 },
             ],
         });
-        const posts = postData.map((post) => post.get({ plain: true }));
-        res.render('homepage.hbs', { posts, logged_in: req.session.logged_in });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        const posts = postData.map((post) => post.get({ plain: true }))
+        res.render('homepage', {
+            posts,
+            logged_in: req.session.logged_in
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err)
     }
 });
 
-// Function/ Route to get a single post
+// Function/ Route to get a single post by its id
 router.get('/post/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
             include: [
                 {
                     model: User,
-                    attributes: ['username'],
+                    attributes: ['name']
                 },
                 {
                     model: Comment,
-                    attributes: ['comment'],
-                    include: [
-                        {
-                            model: User,
-                            attributes: ['username'],
-                        },
-                    ],
+                    attributes: ['content', 'date_created'],
+                    include: {
+                        model: User,
+                        attributes: ['name'],
+                    },
                 },
             ],
         });
-
         const post = postData.get({ plain: true });
-        res.render('single-post', { post, logged_in: req.session.logged_in });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        res.render('post', {
+            post,
+            logged_in: req.session.logged_in
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err)
     }
 });
 
@@ -56,22 +59,24 @@ router.get('/profile', withAuth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },
-            include: [{ model: Post }],
+            include: [{ model: Post }]
         });
-
         const user = userData.get({ plain: true });
-        res.render('profile', { ...user, logged_in: true });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        res.render('profile', {
+            ...user,
+            logged_in: true
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err)
     }
 });
 
 // Function/ Route to get the login page
 router.get('/login', (req, res) => {
-    if (req.session.logged_in) {
+    if (req.session.logged_in_) {
         res.redirect('/profile');
-        return;
+        return
     }
     res.render('login');
 });

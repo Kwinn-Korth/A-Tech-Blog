@@ -10,51 +10,46 @@ router.post('/', withAuth, async (req, res) => {
             user_id: req.session.user_id,
         });
 
-        res.status(200).json(newPost);
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
+        res.status(200).json(newPost)
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
 // Function to update a post
-router.put('/:id', withAuth, async (req, res) => {
-    try {
-        const updatedPost = await Post.update(
-            {
-                title: req.body.title,
-                content: req.body.content,
+router.put('/:id', async (req, res) => {
+    const updatedPost = await Post.update(
+        {
+            title: req.body.title,
+            content: req.body.content,
+        },
+        {
+            where: {
+                id: req.params.id,
             },
-            {
-                where: {
-                    id: req.params.id,
-                },
-            }
-        );
-        res.json(updatedPost);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
-    };
+        }
+    );
+
+    res.json(updatedPost);
 });
 
 // Function to delete a post
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const deletedPost = await Post.destroy({
+        const postData = await Post.destroy({
             where: {
                 id: req.params.id,
-                user_id: req.session.user_id,
+                user_id: req.session.user_id
             }
-    });
-    if (!deletedPost) {
-        res.status(404).json({ message: 'No post found with this id!' });
-        return;
-    }
-    res.status(200).json(deletedPost);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        });
+        if (!postData) {
+            res.status(404).json({ message: "No post with this ID or Invalid permissions" })
+            return;
+        }
+
+        res.status(200).json(postData);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
@@ -62,18 +57,25 @@ router.delete('/:id', withAuth, async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
-            include: [{model: User, attributes: ['username'],}],
+            include: [
+                {
+                    model: User,
+                    attributes: ['name'],
+                },
+            ],
         });
+
         if (!postData) {
-            res.status(404).json({ message: 'No post found with this id!' });
-            return;
+            return res.status(404).json({ message: 'Post not found' });
         }
-        res.json(200).json(postData);
-        } catch (error) {
-            console.log(error);
-            res.status(500).json(error);
-        }
+
+        const post = postData.get({ plain: true });
+
+        return res.json(post);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
     }
- );
+});
 
 module.exports = router;

@@ -6,32 +6,36 @@ const withAuth = require('../../utils/auth');
 router.get('/', async (req, res) => {
     try {
         const commentData = await Comment.findAll({
-            include: [{model:User, attributes: ['username'] }],
+            include: [
+                {
+                    model: User,
+                    attributes: ['name']
+                },
+            ],
         });
 
-        const comments = commentData.map((comment) => comment.get({plain: true}));
+        const comments = commentData.map((comment) => comment.get({ plain: true }))
 
-        res.json(comments);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        res.json(comments)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err)
     }
 });
 
 // Function to create a new comment
 router.post('/:post_id', withAuth, async (req, res) => {
-    console.log(req.body);
+    console.log(req.body)
     try {
         const newComment = await Comment.create({
             ...req.body,
             user_id: req.session.user_id,
-            post_id: req.params.post_id,
+            post_id: req.params.post_id
         });
 
-        res.status(200).json(newComment);
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
+        res.status(200).json(newComment)
+    } catch (err) {
+        res.status(400).json(err)
     }
 });
 

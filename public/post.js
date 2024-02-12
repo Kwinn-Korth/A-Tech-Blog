@@ -1,4 +1,4 @@
-const commentModal = document.getElementById('commentModal');
+const commentModal = document.getElementById('createCommentModal');
 const commentButton = document.getElementById('commentButton');
 const commentModalClose = document.getElementById('commentModalClose');
 
