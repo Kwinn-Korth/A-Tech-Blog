@@ -1,6 +1,6 @@
 const commentModal = document.getElementById('createCommentModal');
-const commentButton = document.getElementById('commentButton');
-const commentModalClose = document.getElementById('commentModalClose');
+const commentButton = document.getElementById('comment-button');
+const commentModalClose = commentModal.getElementsByClassName("close")[0];
 
 commentButton.onclick = function() {
     commentModal.style.display = 'block';
@@ -18,17 +18,18 @@ window.onclick = function(event) {
 
 const currentPost = document.querySelector('#currentPost').textContent;
 
-const newComment = async (event) => {
+const newCommentHandler = async (event) => {
     event.preventDefault();
-    const content = document.querySelector('#currentPost').value.trim();
+    const content = document.querySelector('#add-comment').value.trim();
     if (content) {
         const response = await fetch(`/api/comments/${currentPost}`, {
             method: 'POST',
-            body: JSON.stringify({ content, currentPost }),
+            body: JSON.stringify({ content }),
             headers: { 'Content-Type': 'application/json' },
         });
         if (response.ok) {
             document.location.replace(`/post/${currentPost}`);
+            console.log('Comment added');
         } else {
             alert('Failed to comment');
         }
@@ -37,4 +38,4 @@ const newComment = async (event) => {
 
 document
     .querySelector('#newCommentButton')
-    .addEventListener('click', newComment);
+    .addEventListener('click', newCommentHandler);

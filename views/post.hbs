@@ -1,9 +1,3 @@
-{{!-- Use extend to inherit the main layout --}}
-{{extend "main"}}
-
-{{!-- Define the content for this page --}}
-{{#content "body"}}
-    {{!-- Your post content here --}}
     <div class="row mb-4 card border-dark">
         <div class="col-md-12 d-flex justify-content-between align-items-center primary">
             <h2>
@@ -17,7 +11,7 @@
             </p>
         </div>
     </div>
-    <!-- Display comments beneath post -->
+
     <div class="row mb-4 card border-dark">
         <div class="col-md-12 d-flex justify-content-between align-items-center primary">
             <h2>
@@ -48,7 +42,6 @@
             {{/if}}
         </div>
     </div>
-{{/content}}
 
-<script src="/post.js"></script>
+<script src="../public/profile.js"></script>
 

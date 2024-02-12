@@ -1,82 +1,92 @@
 const createModal = document.getElementById('createPostModal');
 const editModal = document.getElementById('editPostModal');
-const createButton = document.getElementById('createPostButton');
-const editButtons = document.querySelectorAll('editPostButton');
-const createModalClose = createModal.getElementsByClassName('close')[0];
-const editModalClose = editModal.getElementsByClassName('close')[0];
+const newButton = document.getElementById("new-button");
+const editButtons = document.querySelectorAll(".edit-button");
+const createModalClose = createModal.getElementsByClassName("close")[0];
+const editModalClose = editModal.getElementsByClassName("close")[0];
 
-createButton.onclick = function() {
-    createModal.style.display = 'block';
+newButton.onclick = function () {
+    createModal.style.display = "block";
 };
 
-createModalClose.onclick = function() {
-    createModal.style.display = 'none';
+createModalClose.onclick = function () {
+    createModal.style.display = "none";
 };
 
-editModalClose.onclick = function() {
-    editModal.style.display = 'none';
+editModalClose.onclick = function () {
+    editModal.style.display = "none";
 };
 
-window.onclick = function(event) {
-    if (event.target === createModal) {
-        createModal.style.display = 'none';
+window.onclick = function (event) {
+    if (event.target == createModal) {
+        createModal.style.display = "none";
     }
-    if (event.target === editModal) {
-        editModal.style.display = 'none';
+    if (event.target == editModal) {
+        editModal.style.display = "none";
     }
 };
 
-const newPost = async (event) => {
+const newPostHandler = async (event) => {
     event.preventDefault();
-    const title = document.querySelector('#title').value.trim();
-    const content = document.querySelector('#content').value.trim();
+    const title = document.querySelector('#title-post').value.trim();
+    const content = document.querySelector('#content-post').value.trim();
     if (title && content) {
-        const response = await fetch('/api/posts/', {
+        const response = await fetch('./api/posts', {
             method: 'POST',
             body: JSON.stringify({ title, content }),
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
         if (response.ok) {
             document.location.replace('/profile');
         } else {
-            alert('Failed to create post');
+            alert('Failed to create post')
         }
     }
 };
 
-const editPost = async (event) => {
+const editPostHandler = async (event, postId) => {
     event.preventDefault();
-    const response = await fetch(`/api/posts/${postId}`, {
+    const response = await fetch(`./api/posts/${postId}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
     if (response.ok) {
-        const post = await response.json();
-        document.querySelector('#editTitle').value = postData.title;
-        document.querySelector('#editContent').value = postData.content;
+        const postData = await response.json();
+        document.querySelector('#edit-title-post').value = postData.title;
+        document.querySelector('#edit-content-post').value = postData.content;
         editModal.style.display = 'block';
-
-        const saveChanges = async (event) => {
+        const saveChangesHandler = async (event) => {
             event.preventDefault();
-            const title = document.querySelector('#editTitle').value.trim();
-            const content = document.querySelector('#editContent').value.trim();
+            const title = document.querySelector('#edit-title-post').value.trim();
+            const content = document.querySelector('#edit-content-post').value.trim();
             if (title && content) {
-                const response = await fetch(`/api/posts/${postId}`, {
+                const response = await fetch(`./api/posts/${postId}`, {
                     method: 'PUT',
                     body: JSON.stringify({ title, content }),
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 });
                 if (response.ok) {
                     document.location.replace('/profile');
                 } else {
-                    alert('Failed to edit post');
+                    alert('Failed to edit post')
                 }
             }
         };
+        document
+            .querySelector('#saveChangesButton')
+            .addEventListener('click', saveChangesHandler);
+    } else {
+        alert('Failed to fetch post data');
     }
 };
 
-const deletePost = async (event) => {
+const delButtonHandler = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
         const response = await fetch(`/api/posts/${id}`, {
@@ -85,7 +95,7 @@ const deletePost = async (event) => {
         if (response.ok) {
             document.location.replace('/profile');
         } else {
-            alert('Failed to delete post');
+            alert('Failed to delete post')
         }
     }
 };
@@ -100,8 +110,8 @@ editButtons.forEach(function (button) {
 
 document
     .querySelector('#newPostButton')
-    .addEventListener('click', newPost);
+    .addEventListener('click', newPostHandler);
 
 document
     .querySelector('#deletePostButton')
-    .addEventListener('click', deletePost);
+    .addEventListener('click', delButtonHandler);
