@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
+const path = require('path');
 
 // Function/ Route to get all posts
 router.get('/', async (req, res) => {
@@ -14,18 +15,17 @@ router.get('/', async (req, res) => {
             ],
         });
 
-        const posts = postData.map((post) => post.get({ plain: true }))
+        const posts = postData.map((post) => post.get({ plain: true }));
 
-        res.render('homepage', {
+        res.render(path.join(__dirname, '../views/homepage.hbs'), {
             posts,
             logged_in: req.session.logged_in
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json(err)
+        res.status(500).json(err);
     }
 });
-
 // Function/ Route to get a single post by its id
 router.get('/post/:id', async (req, res) => {
     try {
@@ -46,7 +46,7 @@ router.get('/post/:id', async (req, res) => {
             ],
         });
         const post = postData.get({ plain: true });
-        res.render('post', {
+        res.render(path.join(__dirname, '../views/post.hbs'), { 
             post,
             logged_in: req.session.logged_in
         });
@@ -64,7 +64,7 @@ router.get('/profile', withAuth, async (req, res) => {
             include: [{ model: Post }]
         });
         const user = userData.get({ plain: true });
-        res.render('profile', {
+        res.render(path.join(__dirname, '../views/profile.hbs'), { 
             ...user,
             logged_in: true
         });
@@ -77,10 +77,10 @@ router.get('/profile', withAuth, async (req, res) => {
 // Function/ Route to get the login page
 router.get('/login', (req, res) => {
     if (req.session.logged_in_) {
-        res.redirect('/profile');
+        res.redirect(path.join(__dirname, '../views/profile.hbs'));
         return
     }
-    res.render('login');
+    res.render(path.join(__dirname, '../views/login.hbs')); 
 });
 
 module.exports = router;
